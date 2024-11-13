@@ -1,6 +1,9 @@
 import 'package:anime_convention/shared/api/queries/__generated__/fetch_voice_actor.data.gql.dart';
 import 'package:anime_convention/shared/api/queries/__generated__/fetch_voice_actor.req.gql.dart';
 import 'package:ferry/ferry.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../api/ferry_client.dart';
 
 class StaffRepository {
   final Client client;
@@ -26,3 +29,9 @@ class StaffRepository {
     }
   }
 }
+
+// Provider for StaffRepository
+final staffRepositoryProvider = Provider<StaffRepository>((ref) {
+  final client = ref.read(ferryClientProvider);
+  return StaffRepository(client);
+});

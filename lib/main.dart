@@ -1,15 +1,21 @@
 import 'package:anime_convention/shared/api/ferry_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'features/home/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FerryClientProvider.init();
+  final ferryClient = await FerryClientInitializer.init();
 
   runApp(
-    ProviderScope(child: const MyApp()),
+    ProviderScope(
+      overrides: [
+        ferryClientProvider.overrideWithValue(ferryClient),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 

@@ -1,57 +1,52 @@
 import 'package:flutter/material.dart';
-import '../../../shared/api/ferry_client.dart';
-import '../../staff/staff_repository.dart';
+import '../../staff/view/staff_page.dart';
+
+const List<String> voiceActors = [
+  "Christopher Sabat",
+  "Sean Schemmel",
+  "Todd Haberkorn",
+  "Maile Flanagan",
+  "Clifford Chapin",
+  "Mallorie Rodak",
+  "Amanda Lee",
+  "Brittney Karbowski",
+  "Jamie Marchi",
+  "Monica Rial",
+  "Jason Liebrecht",
+  "Elizabeth Maxwell",
+  "Brandon McInnis",
+  "Kristen McGuire",
+  "Kimiko Glenn",
+  "J Michael Tatum",
+  "Steve Downes",
+  "Kellen Goff",
+  "Richard Horvitz",
+  "Justin Cook",
+  "Alejandro Saab",
+  "Yuri Lowenthal",
+  "Tara Platt",
+  "Griffin Burns",
+];
 
 class HomeBody extends StatelessWidget {
-  final StaffRepository repository;
-
-  HomeBody({super.key})
-      : repository = StaffRepository(FerryClientProvider.client);
+  const HomeBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future:
-          repository.fetchStaff("Kana Hanazawa"), // Replace with desired search
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        }
-
-        final staff = snapshot.data;
-        if (staff == null) {
-          return const Center(child: Text('No staff data found.'));
-        }
-
-        final characters = staff.characters?.edges?.toList() ?? [];
-
-        return ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            Text('Name: ${staff.name?.first} ${staff.name?.last}'),
-            if (staff.image?.large != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Image.network(staff.image!.large!),
-              ),
-            Text('Characters:'),
-            ...characters.map((characterEdge) {
-              final character = characterEdge?.node;
-              if (character == null) return const SizedBox.shrink();
-
-              return ListTile(
-                leading: character.image?.large != null
-                    ? Image.network(character.image!.large!)
-                    : null,
-                title: Text(character.name?.full ?? 'Unknown'),
-                subtitle: Text('ID: ${character.id}'),
-              );
-            }),
-          ],
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: voiceActors.length,
+      itemBuilder: (context, index) {
+        final name = voiceActors[index];
+        return ListTile(
+          title: Text(name),
+          trailing: const Icon(Icons.arrow_forward),
+          onTap: () {
+            Navigator.push(
+              context,
+              StaffPage.route(name),
+            );
+          },
         );
       },
     );

@@ -21,6 +21,11 @@ dependencies:
   hive_flutter: ^1.1.0
   gql_http_link: ^1.1.0
   ferry_hive_store: ^0.5.2
+  cached_network_image: ^3.4.1
+  shimmer: ^3.0.0
+  blurhash: ^1.1.1
+  shared_preferences: ^2.3.3
+  flutter_blurhash: ^0.8.2
 
 dev_dependencies:
   flutter_test:

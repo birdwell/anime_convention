@@ -1,20 +1,12 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_hive_store/ferry_hive_store.dart';
 import 'package:gql_http_link/gql_http_link.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shimmer/shimmer.dart';
 
-class FerryClientProvider {
-  static Client? _client;
-
-  static Client get client {
-    if (_client == null) {
-      throw Exception(
-          "FerryClientProvider.init() must be called before accessing the client.");
-    }
-    return _client!;
-  }
-
-  static Future<void> init() async {
+class FerryClientInitializer {
+  static Future<Client> init() async {
     // Initialize Hive for caching
     await Hive.initFlutter();
     final box = await Hive.openBox('graphql_cache');
@@ -24,12 +16,18 @@ class FerryClientProvider {
 
     // Define the HTTP link for GraphQL
     final link = HttpLink(
-        'https://graphql.anilist.co'); // Replace with your API endpoint
+      'https://graphql.anilist.co',
+    ); // Replace with your API endpoint
 
-    // Initialize Ferry Client
-    _client = Client(
+    // Create and return the Ferry client
+    return Client(
       link: link,
       cache: cache,
     );
   }
 }
+
+// A simple provider for the Ferry client
+final ferryClientProvider = Provider<Client>((ref) {
+  throw UnimplementedError("Ferry client not initialized!");
+});

@@ -4,12 +4,10 @@ query FetchVoiceActor($search: String) {
     name {
       first
       last
-      native
     }
     image {
       large
     }
-    languageV2
     characters {
       edges {
         node {
@@ -22,10 +20,10 @@ query FetchVoiceActor($search: String) {
           }
         }
         media {
+          id
           title {
             romaji
             english
-            native
           }
         }
       }
