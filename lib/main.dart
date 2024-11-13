@@ -1,9 +1,13 @@
+import 'package:anime_convention/shared/api/ferry_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'features/home/home.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FerryClientProvider.init();
+
   runApp(
     ProviderScope(child: const MyApp()),
   );

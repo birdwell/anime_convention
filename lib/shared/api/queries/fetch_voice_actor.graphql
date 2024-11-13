@@ -1,0 +1,34 @@
+query FetchVoiceActor($search: String) {
+  Staff(search: $search) {
+    id
+    name {
+      first
+      last
+      native
+    }
+    image {
+      large
+    }
+    languageV2
+    characters {
+      edges {
+        node {
+          id
+          name {
+            full
+          }
+          image {
+            large
+          }
+        }
+        media {
+          title {
+            romaji
+            english
+            native
+          }
+        }
+      }
+    }
+  }
+}
