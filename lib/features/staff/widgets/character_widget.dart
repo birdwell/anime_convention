@@ -1,10 +1,9 @@
+import 'package:anime_convention/shared/typedefs.dart';
 import 'package:flutter/material.dart';
-
-import '../../../shared/api/queries/__generated__/fetch_voice_actor.data.gql.dart';
 import '../../../shared/widgets/character_image_widget.dart';
 
 class CharacterWidget extends StatelessWidget {
-  final GFetchVoiceActorData_Staff_characters_edges? characterEdge;
+  final CharacterEdge? characterEdge;
 
   const CharacterWidget({super.key, required this.characterEdge});
 
@@ -16,6 +15,7 @@ class CharacterWidget extends StatelessWidget {
 
     final imageUrl = character.image?.large;
     final title = characterEdge?.media?.firstOrNull?.title?.english;
+    final characterName = character.name?.full ?? '';
 
     return ListTile(
       leading: imageUrl != null
@@ -24,7 +24,7 @@ class CharacterWidget extends StatelessWidget {
               cacheKey: character.id.toString(),
             )
           : null,
-      title: Text(character.name?.full ?? ''),
+      title: Text(characterName),
       subtitle: title != null ? Text(title) : null,
     );
   }

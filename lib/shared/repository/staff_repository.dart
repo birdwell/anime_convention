@@ -15,12 +15,11 @@ class StaffRepository {
     final request = GFetchVoiceActorReq((b) => b..vars.search = search);
 
     try {
-      // Execute the request and wait for the response
       final response = await client.request(request).first;
 
       if (response.hasErrors) {
         throw Exception(
-            response.graphqlErrors?.map((e) => e.message).join(', '));
+            response.graphqlErrors?.map((e) => e.message).join(', '),);
       }
 
       return response.data?.Staff;

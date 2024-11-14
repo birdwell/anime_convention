@@ -14,7 +14,7 @@ class StaffBody extends ConsumerWidget {
     return FutureBuilder(
       future: ref
           .read(staffRepositoryProvider)
-          .fetchStaff(name), // Replace with desired search
+          .fetchStaff(name),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -33,7 +33,7 @@ class StaffBody extends ConsumerWidget {
         final staffImageUrl = staff.image?.large;
 
         return ListView(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           children: [
             if (staffImageUrl != null)
               Padding(
@@ -43,9 +43,9 @@ class StaffBody extends ConsumerWidget {
                   cacheKey: staff.id.toString(),
                 ),
               ),
-            Text(
+            const Text(
               'Characters',
-              style: Theme.of(context).textTheme.titleMedium,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             ListView.builder(
               shrinkWrap: true,

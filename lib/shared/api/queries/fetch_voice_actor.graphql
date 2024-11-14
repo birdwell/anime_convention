@@ -20,6 +20,9 @@ query FetchVoiceActor($search: String) {
           }
         }
         media {
+          mediaListEntry {
+            status
+          }
           id
           title {
             romaji

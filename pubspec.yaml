@@ -26,6 +26,10 @@ dependencies:
   blurhash: ^1.1.1
   shared_preferences: ^2.3.3
   flutter_blurhash: ^0.8.2
+  flutter_appauth: ^8.0.0+1
+  flutter_secure_storage: ^4.2.1
+  url_launcher: ^6.3.1
+  uni_links: ^0.5.1
 
 dev_dependencies:
   flutter_test:
