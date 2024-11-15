@@ -1,7 +1,8 @@
-import 'package:anime_convention/features/staff/widgets/character_widget.dart';
+import 'package:anime_convention/features/staff/widgets/characters_list_widget.dart';
 import 'package:anime_convention/shared/widgets/staff_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../shared/repository/staff_repository.dart';
 
 class StaffBody extends ConsumerWidget {
@@ -25,8 +26,6 @@ class StaffBody extends ConsumerWidget {
           if (staff == null) {
             return const Center(child: Text('No staff data found.'));
           }
-
-          final characters = staff.characters?.edges?.toList() ?? [];
           final staffImageUrl = staff.image?.large;
 
           return ListView(
@@ -40,17 +39,7 @@ class StaffBody extends ConsumerWidget {
                     cacheKey: staff.id.toString(),
                   ),
                 ),
-              const Text(
-                'Characters',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: characters.length,
-                itemBuilder: (context, index) =>
-                    CharacterWidget(characterEdge: characters[index]),
-              ),
+              CharactersListWidget(staffId: staff.id.toString()),
             ],
           );
         },

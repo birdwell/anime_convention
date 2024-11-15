@@ -40,6 +40,7 @@ dependencies:
   built_collection: any
   gql_code_builder_serializers: any
   mockito: ^5.4.4
+  collection: ^1.18.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

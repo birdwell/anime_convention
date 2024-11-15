@@ -18,6 +18,7 @@ class LoginWidget extends ConsumerWidget {
         await ref.read(secureStorageServiceProvider).saveAccessToken(token);
       } else {
         _logger.w('Login failed or was cancelled.');
+        Fluttertoast.showToast(msg: 'Login was cancelled or failed. Please try again.');
       }
     } catch (e) {
       _logger.e('Error during login: $e');

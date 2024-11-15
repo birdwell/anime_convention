@@ -7,6 +7,8 @@ import 'dart:async' as _i4;
 
 import 'package:anime_convention/shared/api/queries/__generated__/fetch_voice_actor.data.gql.dart'
     as _i5;
+import 'package:anime_convention/shared/api/queries/__generated__/fetch_voice_actor_characters.data.gql.dart'
+    as _i6;
 import 'package:anime_convention/shared/repository/staff_repository.dart'
     as _i3;
 import 'package:ferry/ferry.dart' as _i2;
@@ -61,4 +63,23 @@ class MockStaffRepository extends _i1.Mock implements _i3.StaffRepository {
         ),
         returnValue: _i4.Future<_i5.GFetchVoiceActorData_Staff?>.value(),
       ) as _i4.Future<_i5.GFetchVoiceActorData_Staff?>);
+
+  @override
+  _i4.Future<_i6.GFetchCharactersData_Staff_characters?> fetchCharacters(
+    String? id,
+    int? page,
+    int? perPage,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchCharacters,
+          [
+            id,
+            page,
+            perPage,
+          ],
+        ),
+        returnValue:
+            _i4.Future<_i6.GFetchCharactersData_Staff_characters?>.value(),
+      ) as _i4.Future<_i6.GFetchCharactersData_Staff_characters?>);
 }
