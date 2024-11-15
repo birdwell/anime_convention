@@ -13,8 +13,7 @@ class CharacterImageWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
+  Widget build(BuildContext context) => ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: CachedNetworkImage(
         imageUrl: imageUrl,
@@ -37,5 +36,4 @@ class CharacterImageWidget extends StatelessWidget {
         alignment: Alignment.center,
       ),
     );
-  }
 }

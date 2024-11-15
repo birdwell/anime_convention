@@ -30,7 +30,16 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   url_launcher: ^6.3.1
   uni_links: ^0.5.1
+  logger: ^2.4.0
+  fluttertoast: ^8.2.8
 
+  built_value: any
+  ferry_exec: any
+  gql_exec: any
+  gql: any
+  built_collection: any
+  gql_code_builder_serializers: any
+  mockito: ^5.4.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
