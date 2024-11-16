@@ -6,6 +6,16 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'characters_provider.g.dart';
 
 @riverpod
+class ShowOnlyMyShows extends _$ShowOnlyMyShows {
+  @override
+  bool build() => false;
+
+  void toggle() {
+    state = !state;
+  }
+}
+
+@riverpod
 class Characters extends _$Characters {
   static int perPage = 25;
 
@@ -18,7 +28,7 @@ class Characters extends _$Characters {
     return CharactersState(
       characters: result?.edges?.toList() ?? [],
       hasMore: result?.pageInfo?.hasNextPage ?? false,
-      currentPage: 1,
+      currentPage: 2,
     );
   }
 

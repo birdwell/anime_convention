@@ -1,4 +1,5 @@
 import 'package:anime_convention/features/staff/widgets/characters_list_widget.dart';
+import 'package:anime_convention/features/staff/widgets/tv_shows_widget.dart';
 import 'package:anime_convention/shared/widgets/staff_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,6 +58,7 @@ class StaffBody extends ConsumerWidget {
                     ),
                   ),
                 ),
+              const TvShowsWidget(),
               CharactersListWidget(staffId: staff.id),
             ],
           );

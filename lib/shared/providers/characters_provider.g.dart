@@ -6,7 +6,23 @@ part of 'characters_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$charactersHash() => r'5a02f1de4cfad02c223e4549d0ce11f29b3e4a64';
+String _$showOnlyMyShowsHash() => r'30ba9d80e07615ae86b283cab212e1b61db55915';
+
+/// See also [ShowOnlyMyShows].
+@ProviderFor(ShowOnlyMyShows)
+final showOnlyMyShowsProvider =
+    AutoDisposeNotifierProvider<ShowOnlyMyShows, bool>.internal(
+  ShowOnlyMyShows.new,
+  name: r'showOnlyMyShowsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$showOnlyMyShowsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$ShowOnlyMyShows = AutoDisposeNotifier<bool>;
+String _$charactersHash() => r'c8928776c37908503452a9aa582e310412290779';
 
 /// Copied from Dart SDK
 class _SystemHash {

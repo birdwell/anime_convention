@@ -1,6 +1,6 @@
 query FetchCharacters($id: Int, $page: Int, $perPage: Int) {
   Staff(id: $id) {
-    characters(page: $page, perPage: $perPage) {
+    characters(page: $page, perPage: $perPage, sort: FAVOURITES_DESC) {
       pageInfo {
         total
         perPage
