@@ -5,11 +5,15 @@ import 'package:shimmer/shimmer.dart';
 class StaffImageWidget extends StatelessWidget {
   final String imageUrl;
   final String cacheKey;
+  final double height;
+  final double width;
 
   const StaffImageWidget({
     super.key,
     required this.imageUrl,
     required this.cacheKey,
+    this.height = 150,
+    this.width = 100,
   });
 
   @override
@@ -17,12 +21,12 @@ class StaffImageWidget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8), // Circle-like shape
         child: CachedNetworkImage(
-          height: 150,
+          height: height,
           fit: BoxFit.cover,
           imageUrl: imageUrl,
           placeholder: (context, url) => SizedBox(
-            height: 150,
-            width: 100,
+            height: height,
+            width: width,
             child: Shimmer.fromColors(
               baseColor: Colors.grey.shade300,
               highlightColor: Colors.grey.shade100,

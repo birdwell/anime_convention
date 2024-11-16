@@ -15,7 +15,9 @@ class CharacterWidget extends StatelessWidget {
 
     final foundMedia = media.firstWhereOrNull((m) {
       final status = m?.mediaListEntry?.status;
-      return status != MediaStatus.DROPPED && status != null;
+      return status != MediaStatus.DROPPED &&
+          status != MediaStatus.PLANNING &&
+          status != null;
     });
 
     return foundMedia != null;
