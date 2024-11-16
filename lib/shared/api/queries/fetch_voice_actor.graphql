@@ -9,5 +9,6 @@ query FetchVoiceActor($search: String) {
       large
     }
     isFavourite
+    siteUrl
   }
 }

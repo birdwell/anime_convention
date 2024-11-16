@@ -1,3 +1,4 @@
+import 'package:anime_convention/features/character/view/character_page.dart';
 import 'package:anime_convention/shared/typedefs.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
@@ -35,6 +36,12 @@ class CharacterWidget extends StatelessWidget {
     final characterName = character.name?.full ?? '';
 
     return ListTile(
+      onTap: () {
+        Navigator.push(
+          context,
+          CharacterPage.route(character.id),
+        );
+      },
       leading: imageUrl != null
           ? CharacterImageWidget(
               imageUrl: imageUrl,

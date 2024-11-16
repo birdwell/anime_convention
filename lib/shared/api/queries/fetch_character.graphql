@@ -1,0 +1,32 @@
+query FetchCharacter($id: Int) {
+  Character(id: $id) {
+    name {
+      full
+    }
+    image {
+      large
+    }
+    isFavourite
+    media {
+      nodes {
+        siteUrl
+        id
+        mediaListEntry {
+          status
+        }
+        coverImage {
+          large
+          extraLarge
+          color
+        }
+        title {
+          romaji
+          english
+        }
+      }
+    }
+    description
+    id
+    siteUrl
+  }
+}
