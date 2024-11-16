@@ -1,0 +1,34 @@
+query FetchCharacters($id: Int, $page: Int, $perPage: Int) {
+  Staff(id: $id) {
+    characters(page: $page, perPage: $perPage) {
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
+      edges {
+        node {
+          id
+          name {
+            full
+          }
+          image {
+            large
+          }
+        }
+        media {
+          id
+          title {
+            romaji
+            english
+          }
+          mediaListEntry {
+            status
+          }
+        }
+      }
+    }
+  }
+}

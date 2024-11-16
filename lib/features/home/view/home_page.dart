@@ -4,23 +4,17 @@ import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(builder: (_) => const HomePage());
-  }
+  static Route<dynamic> route() => MaterialPageRoute<dynamic>(builder: (_) => const HomePage());
 
   @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
+  Widget build(BuildContext context) => const Scaffold(
       body: SafeArea(child: HomeView()),
     );
-  }
 }
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return HomeBody();
-  }
+  Widget build(BuildContext context) => HomeBody();
 }

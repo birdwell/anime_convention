@@ -1,33 +1,25 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ferry/ferry.dart';
-import 'package:ferry_hive_store/ferry_hive_store.dart';
 import 'package:gql_http_link/gql_http_link.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class FerryClientInitializer {
-  static Future<Client> init() async {
-    // Initialize Hive for caching
-    await Hive.initFlutter();
-    final box = await Hive.openBox('graphql_cache');
+import '../../features/auth/provider/auth_provider.dart';
 
-    // Create a cache backed by Hive
-    final cache = Cache(store: HiveStore(box));
+part 'ferry_client.g.dart';
 
-    // Define the HTTP link for GraphQL
-    final link = HttpLink(
+@Riverpod(keepAlive: true)
+Cache cache(_) => throw UnimplementedError('Missing Hive Implementation');
+
+@Riverpod(keepAlive: true)
+Client ferryClient(ref) {
+  final accessToken = ref.watch(authStateProvider);
+  final cache = ref.watch(cacheProvider);
+  return Client(
+    link: HttpLink(
       'https://graphql.anilist.co',
-    ); // Replace with your API endpoint
-
-    // Create and return the Ferry client
-    return Client(
-      link: link,
-      cache: cache,
-    );
-  }
+      defaultHeaders: {
+        'Authorization': 'Bearer $accessToken',
+      },
+    ),
+    cache: cache,
+  );
 }
-
-// A simple provider for the Ferry client
-final ferryClientProvider = Provider<Client>((ref) {
-  throw UnimplementedError("Ferry client not initialized!");
-});

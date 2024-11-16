@@ -32,8 +32,7 @@ class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
+  Widget build(BuildContext context) => ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: voiceActors.length,
       itemBuilder: (context, index) {
@@ -50,5 +49,4 @@ class HomeBody extends StatelessWidget {
         );
       },
     );
-  }
 }

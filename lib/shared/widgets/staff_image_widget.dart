@@ -13,8 +13,7 @@ class StaffImageWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Center(
+  Widget build(BuildContext context) => Center(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8), // Circle-like shape
         child: CachedNetworkImage(
@@ -37,5 +36,4 @@ class StaffImageWidget extends StatelessWidget {
         ),
       ),
     );
-  }
 }

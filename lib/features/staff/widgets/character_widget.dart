@@ -1,12 +1,25 @@
+import 'package:anime_convention/shared/typedefs.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/api/queries/__generated__/fetch_voice_actor.data.gql.dart';
 import '../../../shared/widgets/character_image_widget.dart';
 
 class CharacterWidget extends StatelessWidget {
-  final GFetchVoiceActorData_Staff_characters_edges? characterEdge;
+  final CharacterEdge? characterEdge;
 
   const CharacterWidget({super.key, required this.characterEdge});
+
+  _showTVIcon(BuiltList<Media?>? media) {
+    if (media == null) return false;
+
+    final foundMedia = media.firstWhereOrNull((m) {
+      final status = m?.mediaListEntry?.status;
+      return status != MediaStatus.DROPPED && status != null;
+    });
+
+    return foundMedia != null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +28,9 @@ class CharacterWidget extends StatelessWidget {
     if (character == null) return const SizedBox.shrink();
 
     final imageUrl = character.image?.large;
-    final title = characterEdge?.media?.firstOrNull?.title?.english;
+    final media = characterEdge?.media?.firstOrNull;
+    final title = media?.title?.english;
+    final characterName = character.name?.full ?? '';
 
     return ListTile(
       leading: imageUrl != null
@@ -24,8 +39,9 @@ class CharacterWidget extends StatelessWidget {
               cacheKey: character.id.toString(),
             )
           : null,
-      title: Text(character.name?.full ?? ''),
+      title: Text(characterName),
       subtitle: title != null ? Text(title) : null,
+      trailing: _showTVIcon(characterEdge?.media) ? const Icon(Icons.tv) : null,
     );
   }
 }

@@ -8,25 +8,6 @@ query FetchVoiceActor($search: String) {
     image {
       large
     }
-    characters {
-      edges {
-        node {
-          id
-          name {
-            full
-          }
-          image {
-            large
-          }
-        }
-        media {
-          id
-          title {
-            romaji
-            english
-          }
-        }
-      }
-    }
+    isFavourite
   }
 }
