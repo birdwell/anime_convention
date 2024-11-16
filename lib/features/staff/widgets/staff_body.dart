@@ -26,20 +26,38 @@ class StaffBody extends ConsumerWidget {
           if (staff == null) {
             return const Center(child: Text('No staff data found.'));
           }
+
           final staffImageUrl = staff.image?.large;
 
-          return ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            children: [
+          return CustomScrollView(
+            slivers: [
+              // Staff Image Section
               if (staffImageUrl != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: StaffImageWidget(
-                    imageUrl: staffImageUrl,
-                    cacheKey: staff.id.toString(),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Stack(
+                      children: [
+                        StaffImageWidget(
+                          imageUrl: staffImageUrl,
+                          cacheKey: staff.id.toString(),
+                        ),
+                        if (staff.isFavourite)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 64.0, top: 4),
+                            child: Center(
+                              child: Icon(
+                                Icons.favorite,
+                                color: Colors.red.withOpacity(0.9),
+                                size: 24,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
-              CharactersListWidget(staffId: staff.id.toString()),
+              CharactersListWidget(staffId: staff.id),
             ],
           );
         },

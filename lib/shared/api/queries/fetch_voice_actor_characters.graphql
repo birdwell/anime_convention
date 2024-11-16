@@ -1,4 +1,4 @@
-query FetchCharacters($id: String, $page: Int, $perPage: Int) {
+query FetchCharacters($id: Int, $page: Int, $perPage: Int) {
   Staff(id: $id) {
     characters(page: $page, perPage: $perPage) {
       pageInfo {

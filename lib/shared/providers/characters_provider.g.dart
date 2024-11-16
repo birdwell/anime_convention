@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'staff_repository.dart';
+part of 'characters_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$charactersHash() => r'b50bf90d082a969f81456957bbe92160c002e42f';
+String _$charactersHash() => r'5a02f1de4cfad02c223e4549d0ce11f29b3e4a64';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,26 +29,30 @@ class _SystemHash {
   }
 }
 
-/// See also [characters].
-@ProviderFor(characters)
+abstract class _$Characters
+    extends BuildlessAutoDisposeAsyncNotifier<CharactersState> {
+  late final int staffId;
+
+  FutureOr<CharactersState> build(
+    int staffId,
+  );
+}
+
+/// See also [Characters].
+@ProviderFor(Characters)
 const charactersProvider = CharactersFamily();
 
-/// See also [characters].
-class CharactersFamily
-    extends Family<AsyncValue<GFetchCharactersData_Staff_characters?>> {
-  /// See also [characters].
+/// See also [Characters].
+class CharactersFamily extends Family<AsyncValue<CharactersState>> {
+  /// See also [Characters].
   const CharactersFamily();
 
-  /// See also [characters].
+  /// See also [Characters].
   CharactersProvider call(
-    String id,
-    int page,
-    int perPage,
+    int staffId,
   ) {
     return CharactersProvider(
-      id,
-      page,
-      perPage,
+      staffId,
     );
   }
 
@@ -57,9 +61,7 @@ class CharactersFamily
     covariant CharactersProvider provider,
   ) {
     return call(
-      provider.id,
-      provider.page,
-      provider.perPage,
+      provider.staffId,
     );
   }
 
@@ -78,21 +80,14 @@ class CharactersFamily
   String? get name => r'charactersProvider';
 }
 
-/// See also [characters].
+/// See also [Characters].
 class CharactersProvider
-    extends AutoDisposeFutureProvider<GFetchCharactersData_Staff_characters?> {
-  /// See also [characters].
+    extends AutoDisposeAsyncNotifierProviderImpl<Characters, CharactersState> {
+  /// See also [Characters].
   CharactersProvider(
-    String id,
-    int page,
-    int perPage,
+    int staffId,
   ) : this._internal(
-          (ref) => characters(
-            ref as CharactersRef,
-            id,
-            page,
-            perPage,
-          ),
+          () => Characters()..staffId = staffId,
           from: charactersProvider,
           name: r'charactersProvider',
           debugGetCreateSourceHash:
@@ -102,9 +97,7 @@ class CharactersProvider
           dependencies: CharactersFamily._dependencies,
           allTransitiveDependencies:
               CharactersFamily._allTransitiveDependencies,
-          id: id,
-          page: page,
-          perPage: perPage,
+          staffId: staffId,
         );
 
   CharactersProvider._internal(
@@ -114,57 +107,51 @@ class CharactersProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.id,
-    required this.page,
-    required this.perPage,
+    required this.staffId,
   }) : super.internal();
 
-  final String id;
-  final int page;
-  final int perPage;
+  final int staffId;
 
   @override
-  Override overrideWith(
-    FutureOr<GFetchCharactersData_Staff_characters?> Function(
-            CharactersRef provider)
-        create,
+  FutureOr<CharactersState> runNotifierBuild(
+    covariant Characters notifier,
   ) {
+    return notifier.build(
+      staffId,
+    );
+  }
+
+  @override
+  Override overrideWith(Characters Function() create) {
     return ProviderOverride(
       origin: this,
       override: CharactersProvider._internal(
-        (ref) => create(ref as CharactersRef),
+        () => create()..staffId = staffId,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        id: id,
-        page: page,
-        perPage: perPage,
+        staffId: staffId,
       ),
     );
   }
 
   @override
-  AutoDisposeFutureProviderElement<GFetchCharactersData_Staff_characters?>
+  AutoDisposeAsyncNotifierProviderElement<Characters, CharactersState>
       createElement() {
     return _CharactersProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CharactersProvider &&
-        other.id == id &&
-        other.page == page &&
-        other.perPage == perPage;
+    return other is CharactersProvider && other.staffId == staffId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
-    hash = _SystemHash.combine(hash, page.hashCode);
-    hash = _SystemHash.combine(hash, perPage.hashCode);
+    hash = _SystemHash.combine(hash, staffId.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -172,28 +159,18 @@ class CharactersProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CharactersRef
-    on AutoDisposeFutureProviderRef<GFetchCharactersData_Staff_characters?> {
-  /// The parameter `id` of this provider.
-  String get id;
-
-  /// The parameter `page` of this provider.
-  int get page;
-
-  /// The parameter `perPage` of this provider.
-  int get perPage;
+mixin CharactersRef on AutoDisposeAsyncNotifierProviderRef<CharactersState> {
+  /// The parameter `staffId` of this provider.
+  int get staffId;
 }
 
-class _CharactersProviderElement extends AutoDisposeFutureProviderElement<
-    GFetchCharactersData_Staff_characters?> with CharactersRef {
+class _CharactersProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<Characters, CharactersState>
+    with CharactersRef {
   _CharactersProviderElement(super.provider);
 
   @override
-  String get id => (origin as CharactersProvider).id;
-  @override
-  int get page => (origin as CharactersProvider).page;
-  @override
-  int get perPage => (origin as CharactersProvider).perPage;
+  int get staffId => (origin as CharactersProvider).staffId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

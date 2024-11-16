@@ -3,12 +3,9 @@ import 'package:anime_convention/shared/api/queries/__generated__/fetch_voice_ac
 import 'package:anime_convention/shared/api/queries/__generated__/fetch_voice_actor_characters.data.gql.dart';
 import 'package:anime_convention/shared/api/queries/__generated__/fetch_voice_actor_characters.req.gql.dart';
 import 'package:ferry/ferry.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../api/ferry_client.dart';
-
-part 'staff_repository.g.dart';
 
 class StaffRepository {
   final Client client;
@@ -23,7 +20,8 @@ class StaffRepository {
 
       if (response.hasErrors) {
         throw Exception(
-            response.graphqlErrors?.map((e) => e.message).join(', '),);
+          response.graphqlErrors?.map((e) => e.message).join(', '),
+        );
       }
 
       return response.data?.Staff;
@@ -32,11 +30,16 @@ class StaffRepository {
     }
   }
 
-  Future<GFetchCharactersData_Staff_characters?> fetchCharacters(String id, int page, int perPage) async {
-    final request = GFetchCharactersReq((builder) => builder
-      ..vars.id = id
-      ..vars.page = page
-      ..vars.perPage = perPage,
+  Future<GFetchCharactersData_Staff_characters?> fetchCharacters(
+    int id,
+    int page,
+    int perPage,
+  ) async {
+    final request = GFetchCharactersReq(
+      (builder) => builder
+        ..vars.id = id
+        ..vars.page = page
+        ..vars.perPage = perPage,
     );
 
     try {
@@ -44,7 +47,8 @@ class StaffRepository {
 
       if (response.hasErrors) {
         throw Exception(
-            response.graphqlErrors?.map((e) => e.message).join(', '),);
+          response.graphqlErrors?.map((e) => e.message).join(', '),
+        );
       }
 
       return response.data?.Staff?.characters;
@@ -59,10 +63,3 @@ final staffRepositoryProvider = Provider<StaffRepository>((ref) {
   final client = ref.read(ferryClientProvider);
   return StaffRepository(client);
 });
-
-@riverpod
-Future<GFetchCharactersData_Staff_characters?> characters(Ref ref, String id, int page, int perPage) async {
-  final repository = ref.read(staffRepositoryProvider);
-  final characters = await repository.fetchCharacters(id, page, perPage);
-  return characters;
-}

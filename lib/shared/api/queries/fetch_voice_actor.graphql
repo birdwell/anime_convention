@@ -8,5 +8,6 @@ query FetchVoiceActor($search: String) {
     image {
       large
     }
+    isFavourite
   }
 }
