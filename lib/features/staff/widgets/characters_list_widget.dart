@@ -51,8 +51,13 @@ class CharactersListWidget extends ConsumerWidget {
             return CharacterShimmer();
           }
 
-          final character = characters[index];
-          return CharacterWidget(characterEdge: character);
+          final characterEdge = characters[index];
+          return CharacterWidget(
+            key: ValueKey(
+              characterEdge?.node?.id,
+            ),
+            characterEdge: characterEdge,
+          );
         },
         childCount: characters.length + (state.hasMore ? 1 : 0),
       ),

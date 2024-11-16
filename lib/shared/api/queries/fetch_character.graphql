@@ -9,15 +9,27 @@ query FetchCharacter($id: Int) {
     isFavourite
     media {
       nodes {
-        siteUrl
         id
+        siteUrl
+        staff {
+          nodes {
+            id
+            languageV2
+            image {
+              large
+            }
+            name {
+              full
+            }
+          }
+        }
         mediaListEntry {
           status
         }
         coverImage {
           large
-          extraLarge
           color
+          extraLarge
         }
         title {
           romaji

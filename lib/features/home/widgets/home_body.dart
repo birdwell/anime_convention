@@ -50,7 +50,7 @@ class HomeBodyState extends State<HomeBody> {
   Future<void> _loadVoiceActors() async {
     final prefs = await SharedPreferences.getInstance();
     final savedList = prefs.getStringList('voiceActors');
-    if (savedList != null) {
+    if (savedList != null && savedList.isNotEmpty) {
       setState(() {
         voiceActors = savedList;
       });
@@ -63,27 +63,29 @@ class HomeBodyState extends State<HomeBody> {
   }
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(16),
-        child: ReorderableListView.builder(
-          itemCount: voiceActors.length,
-          onReorder: (oldIndex, newIndex) {
-            setState(() {
-              if (newIndex > oldIndex) {
-                newIndex--; // Adjust index if moving down
-              }
-              final item = voiceActors.removeAt(oldIndex);
-              voiceActors.insert(newIndex, item);
-              _saveVoiceActors(); // Save the updated order
-            });
-          },
-          itemBuilder: (context, index) {
-            final name = voiceActors[index];
-            return HomeRow(
-              key: ValueKey(name), // Each item needs a unique key
-              name: name,
-            );
-          },
+  Widget build(BuildContext context) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: ReorderableListView.builder(
+            itemCount: voiceActors.length,
+            onReorder: (oldIndex, newIndex) {
+              setState(() {
+                if (newIndex > oldIndex) {
+                  newIndex--;
+                }
+                final item = voiceActors.removeAt(oldIndex);
+                voiceActors.insert(newIndex, item);
+                _saveVoiceActors();
+              });
+            },
+            itemBuilder: (context, index) {
+              final name = voiceActors[index];
+              return HomeRow(
+                key: ValueKey(name),
+                name: name,
+              );
+            },
+          ),
         ),
       );
 }

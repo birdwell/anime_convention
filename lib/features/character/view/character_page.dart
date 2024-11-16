@@ -1,5 +1,5 @@
 import 'package:anime_convention/features/character/provider/provider.dart';
-import 'package:anime_convention/features/character/widgets/character_body.dart';
+import 'package:anime_convention/features/character/view/character_view.dart';
 import 'package:flutter/material.dart';
 
 class CharacterPage extends StatelessWidget {
@@ -14,13 +14,7 @@ class CharacterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: CharacterView(),
+        backgroundColor: Colors.white,
+        body: SafeArea(top: false, child: CharacterView()),
       );
-}
-
-class CharacterView extends StatelessWidget {
-  const CharacterView({super.key});
-
-  @override
-  Widget build(BuildContext context) => const CharacterBody();
 }

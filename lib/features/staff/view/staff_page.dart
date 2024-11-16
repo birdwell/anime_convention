@@ -8,14 +8,17 @@ class StaffPage extends StatelessWidget {
   const StaffPage({super.key, required this.name});
 
   static Route<dynamic> route(String name) => MaterialPageRoute<dynamic>(
-      builder: (_) => StaffPage(name: name),
-    );
+        builder: (_) => StaffPage(name: name),
+      );
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        title: Text(name),
-      ),
-      body: SafeArea(child: StaffBody(name: name)),
-    );
+        appBar: AppBar(
+          title: Text(name),
+          backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,
+        ),
+        backgroundColor: Colors.white,
+        body: SafeArea(child: StaffBody(name: name)),
+      );
 }
