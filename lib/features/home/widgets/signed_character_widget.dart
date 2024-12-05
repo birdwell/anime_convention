@@ -31,8 +31,13 @@ class SignedCharacterWidget extends ConsumerWidget {
           final media = character.media?.nodes?.firstWhere(
             (media) =>
                 media?.title?.english != null || media?.title?.romaji != null,
-            orElse: () => null, // Provide null if no match
+            orElse: () => null,
           );
+          final mediaEdge = character.media?.edges?.firstWhere(
+            (edge) => edge?.voiceActors?.isNotEmpty ?? false,
+            orElse: () => null,
+          );
+          final englishVoiceActor = mediaEdge?.voiceActors?.firstOrNull;
 
           return ListTile(
             onLongPress: () => ref
@@ -52,6 +57,7 @@ class SignedCharacterWidget extends ConsumerWidget {
                 : const Icon(Icons.broken_image),
             title: Text(character.name?.full ?? 'Unknown'),
             subtitle: Text(media?.title?.english ?? ''),
+            trailing: Text(englishVoiceActor?.name?.full ?? ''),
           );
         },
       );

@@ -11,18 +11,6 @@ query FetchCharacter($id: Int) {
       nodes {
         id
         siteUrl
-        staff {
-          nodes {
-            id
-            languageV2
-            image {
-              large
-            }
-            name {
-              full
-            }
-          }
-        }
         mediaListEntry {
           status
         }
@@ -34,6 +22,20 @@ query FetchCharacter($id: Int) {
         title {
           romaji
           english
+        }
+      }
+      edges {
+        node {
+          id
+        }
+        voiceActors(language: ENGLISH) {
+          id
+          name {
+            full
+          }
+          image {
+            large
+          }
         }
       }
     }

@@ -24,7 +24,7 @@ void main() async {
   runApp(
     ProviderScope(
       overrides: [
-        authStateProvider.overrideWith((_) => savedToken),
+        initialTokenProvider.overrideWith((_) => savedToken),
         cacheProvider.overrideWith((_) => cache),
       ],
       child: const MyApp(),

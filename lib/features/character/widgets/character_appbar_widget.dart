@@ -12,7 +12,6 @@ class CharacterAppbarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageUrl = character.image?.large;
-    final shows = character.media?.nodes;
     final siteUrl = character.siteUrl;
 
     return SliverAppBar(

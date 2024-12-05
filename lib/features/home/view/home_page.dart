@@ -1,6 +1,7 @@
 import 'package:anime_convention/features/home/view/home_view.dart';
 import 'package:anime_convention/features/home/view/signed_characters_page.dart';
 import 'package:anime_convention/features/home/widgets/home_body.dart';
+import 'package:anime_convention/features/profile/view/profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -56,6 +57,12 @@ class HomePage extends StatelessWidget {
                 child: Icon(CupertinoIcons.signature),
               ),
             ),
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Icon(CupertinoIcons.profile_circled),
+              ),
+            ),
           ],
         ),
         tabBuilder: (context, index) {
@@ -64,6 +71,8 @@ class HomePage extends StatelessWidget {
               return AppleTabView(child: HomeView());
             case 1:
               return AppleTabView(child: SignedCharactersPage());
+            case 2:
+              return AppleTabView(child: ProfilePage());
             default:
               return AppleTabView(child: SignedCharactersPage());
           }
@@ -72,7 +81,7 @@ class HomePage extends StatelessWidget {
     }
 
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Anime405'),
@@ -80,14 +89,22 @@ class HomePage extends StatelessWidget {
             tabs: [
               Tab(icon: Icon(Icons.home_rounded)),
               Tab(icon: Icon(Icons.history_edu)),
+              Tab(icon: Icon(Icons.person)),
             ],
           ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.logout),
+            ),
+          ],
         ),
         body: const SafeArea(
           child: TabBarView(
             children: [
               HomeBody(),
               SignedCharactersPage(),
+              ProfilePage(),
             ],
           ),
         ),
