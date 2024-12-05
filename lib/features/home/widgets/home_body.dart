@@ -1,5 +1,5 @@
 import 'package:anime_convention/features/home/widgets/home_row.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeBody extends StatefulWidget {
@@ -49,43 +49,44 @@ class HomeBodyState extends State<HomeBody> {
 
   Future<void> _loadVoiceActors() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedList = prefs.getStringList('voiceActors');
-    if (savedList != null && savedList.isNotEmpty) {
+    final savedActors = prefs.getStringList('voiceActors');
+    if (savedActors != null) {
       setState(() {
-        voiceActors = savedList;
+        voiceActors = savedActors;
       });
     }
   }
 
-  Future<void> _saveVoiceActors() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('voiceActors', voiceActors);
-  }
+  // Future<void> _saveVoiceActors() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setStringList('voiceActors', voiceActors);
+  // }
 
   @override
-  Widget build(BuildContext context) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: ReorderableListView.builder(
-            itemCount: voiceActors.length,
-            onReorder: (oldIndex, newIndex) {
-              setState(() {
-                if (newIndex > oldIndex) {
-                  newIndex--;
-                }
-                final item = voiceActors.removeAt(oldIndex);
-                voiceActors.insert(newIndex, item);
-                _saveVoiceActors();
-              });
-            },
-            itemBuilder: (context, index) {
-              final name = voiceActors[index];
-              return HomeRow(
-                key: ValueKey(name),
-                name: name,
-              );
-            },
-          ),
+  Widget build(BuildContext context) => CupertinoScrollbar(
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            CupertinoSliverRefreshControl(
+              onRefresh: _loadVoiceActors,
+            ),
+            SliverSafeArea(
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    if (index >= voiceActors.length) return null;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: HomeRow(
+                        key: ValueKey(voiceActors[index]),
+                        name: voiceActors[index],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
       );
 }

@@ -2,7 +2,7 @@ import 'package:anime_convention/shared/api/ferry_client.dart';
 import 'package:anime_convention/shared/services/secure_storage_service.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_hive_store/ferry_hive_store.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -39,11 +39,12 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider);
 
-    return MaterialApp(
+    return CupertinoApp(
       title: 'Anime Conventions',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
+      theme: const CupertinoThemeData(
+        primaryColor: CupertinoColors.systemPurple,
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: CupertinoColors.systemBackground,
       ),
       home: authState == null
           ? LoginWidget() // Show login if not authenticated

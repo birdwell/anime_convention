@@ -1,12 +1,11 @@
 import 'package:anime_convention/features/character/view/character_page.dart';
 import 'package:anime_convention/shared/services/signed_characters_service.dart';
 import 'package:anime_convention/shared/typedefs.dart';
+import 'package:anime_convention/shared/widgets/character_image_widget.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../shared/widgets/character_image_widget.dart';
 
 class CharacterWidget extends ConsumerWidget {
   final CharacterEdge? characterEdge;
@@ -21,11 +20,9 @@ class CharacterWidget extends ConsumerWidget {
     final characterId = character.id.toString();
     final isSigned = ref.watch(
       signedCharactersProvider.select(
-        (state) => state.contains(
-          characterId,
-        ),
+        (state) => state.contains(characterId),
       ),
-    ); // Ensure the value is tied to the specific character ID
+    );
     final signedNotifier = ref.read(signedCharactersProvider.notifier);
 
     final imageUrl = character.image?.large;
@@ -33,7 +30,7 @@ class CharacterWidget extends ConsumerWidget {
     final title = media?.title?.english;
     final characterName = character.name?.full ?? '';
 
-    return ListTile(
+    return GestureDetector(
       onLongPress: () => signedNotifier.toggleCharacter(characterId),
       onTap: () {
         Navigator.push(
@@ -41,24 +38,60 @@ class CharacterWidget extends ConsumerWidget {
           CharacterPage.route(character.id),
         );
       },
-      leading: imageUrl != null
-          ? CharacterImageWidget(
-              imageUrl: imageUrl,
-              cacheKey: character.id.toString(),
-            )
-          : null,
-      title: Text(characterName),
-      subtitle: title != null ? Text(title) : null,
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (isSigned)
-            const Padding(
-              padding: EdgeInsets.only(right: 8.0),
-              child: Icon(Icons.history_edu, color: Colors.green),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Row(
+          children: [
+            if (imageUrl != null)
+              CharacterImageWidget(
+                imageUrl: imageUrl,
+                cacheKey: character.id.toString(),
+              ),
+            const SizedBox(width: 16.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    characterName,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  if (title != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: CupertinoColors.secondaryLabel,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
             ),
-          if (_showTVIcon(characterEdge?.media)) const Icon(Icons.tv),
-        ],
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (isSigned)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Icon(
+                      CupertinoIcons.pencil_circle_fill,
+                      color: CupertinoColors.activeGreen,
+                    ),
+                  ),
+                if (_showTVIcon(characterEdge?.media))
+                  Icon(
+                    CupertinoIcons.tv_circle_fill,
+                    color: CupertinoColors.systemGrey,
+                  ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

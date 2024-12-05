@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CharacterShimmer extends StatelessWidget {
@@ -6,19 +6,40 @@ class CharacterShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
-        highlightColor: Colors.grey[100]!,
-        child: ListTile(
-          leading: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              width: 50.0,
-              height: 50.0,
-              color: Colors.white,
-            ),
+        baseColor: CupertinoColors.systemGrey6,
+        highlightColor: CupertinoColors.systemGrey5,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  width: 50.0,
+                  height: 50.0,
+                  color: CupertinoColors.systemBackground,
+                ),
+              ),
+              const SizedBox(width: 16.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 14.0,
+                      color: CupertinoColors.systemBackground,
+                    ),
+                    const SizedBox(height: 8.0),
+                    Container(
+                      height: 12.0,
+                      width: 200.0,
+                      color: CupertinoColors.systemBackground,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          title: Container(height: 10.0, color: Colors.white),
-          subtitle: Container(height: 10.0, color: Colors.white),
         ),
       );
 }

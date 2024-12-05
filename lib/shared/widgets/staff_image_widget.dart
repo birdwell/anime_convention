@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shimmer/shimmer.dart';
 
 class StaffImageWidget extends StatelessWidget {
@@ -18,26 +18,35 @@ class StaffImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8), // Circle-like shape
-        child: CachedNetworkImage(
-          height: height,
-          fit: BoxFit.cover,
-          imageUrl: imageUrl,
-          placeholder: (context, url) => SizedBox(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: CachedNetworkImage(
             height: height,
             width: width,
-            child: Shimmer.fromColors(
-              baseColor: Colors.grey.shade300,
-              highlightColor: Colors.grey.shade100,
-              child: Container(
-                color: Colors.grey.shade300,
+            fit: BoxFit.cover,
+            imageUrl: imageUrl,
+            placeholder: (context, url) => SizedBox(
+              height: height,
+              width: width,
+              child: Shimmer.fromColors(
+                baseColor: CupertinoColors.systemGrey6,
+                highlightColor: CupertinoColors.systemGrey5,
+                child: Container(
+                  color: CupertinoColors.systemGrey6,
+                ),
               ),
             ),
+            errorWidget: (context, url, error) => Container(
+              height: height,
+              width: width,
+              color: CupertinoColors.systemGrey6,
+              child: const Icon(
+                CupertinoIcons.exclamationmark_triangle,
+                color: CupertinoColors.systemRed,
+              ),
+            ),
+            cacheKey: cacheKey,
           ),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
-          cacheKey: cacheKey,
         ),
-      ),
-    );
+      );
 }

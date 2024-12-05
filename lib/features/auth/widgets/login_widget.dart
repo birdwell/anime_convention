@@ -1,6 +1,6 @@
 import 'package:anime_convention/features/auth/auth.dart';
 import 'package:anime_convention/shared/providers/anilist_auth_service_provider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -27,12 +27,16 @@ class LoginWidget extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Scaffold(
-        appBar: AppBar(title: const Text('Login')),
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () => _handleLogin(ref),
-            child: const Text('Login with AniList'),
+  Widget build(BuildContext context, WidgetRef ref) => CupertinoPageScaffold(
+        navigationBar: const CupertinoNavigationBar(
+          middle: Text('Login'),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: CupertinoButton.filled(
+              onPressed: () => _handleLogin(ref),
+              child: const Text('Login with AniList'),
+            ),
           ),
         ),
       );

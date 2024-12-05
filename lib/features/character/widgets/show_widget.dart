@@ -1,6 +1,6 @@
 import 'package:anime_convention/shared/api/queries/__generated__/fetch_character.data.gql.dart';
 import 'package:anime_convention/shared/typedefs.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,34 +25,64 @@ class ShowWidget extends StatelessWidget {
         show?.title?.english ?? show?.title?.romaji ?? 'Unknown Title';
     final siteUrl = show?.siteUrl;
 
-    return ListTile(
-      onTap: () async {
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      onPressed: () async {
         if (siteUrl != null) {
           final uri = Uri.parse(siteUrl);
           if (await canLaunchUrl(uri)) {
             await launchUrl(uri, mode: LaunchMode.inAppBrowserView);
           } else {
             Fluttertoast.showToast(
-              msg: 'Could not launch $siteUrl',
+              msg: 'Could not open link',
+              backgroundColor: CupertinoColors.systemGrey.withOpacity(0.9),
+              textColor: CupertinoColors.white,
             );
           }
         }
       },
-      leading: coverImageUrl != null
-          ? ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                coverImageUrl,
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Row(
+          children: [
+            if (coverImageUrl != null)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  coverImageUrl,
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Icon(
+                    CupertinoIcons.photo,
+                    color: CupertinoColors.systemGrey,
+                    size: 50,
+                  ),
+                ),
+              )
+            else
+              Icon(
+                CupertinoIcons.photo,
+                color: CupertinoColors.systemGrey,
+                size: 50,
               ),
-            )
-          : const Icon(Icons.broken_image),
-      trailing: _showTVIcon(show) ? const Icon(Icons.tv) : null,
-      title: Text(
-        title,
-        style: const TextStyle(fontSize: 16),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: CupertinoColors.label,
+                ),
+              ),
+            ),
+            if (_showTVIcon(show))
+              const Icon(
+                CupertinoIcons.tv,
+                color: CupertinoColors.activeBlue,
+              ),
+          ],
+        ),
       ),
     );
   }

@@ -1,10 +1,9 @@
 import 'package:anime_convention/features/staff/widgets/characters_list_widget.dart';
 import 'package:anime_convention/features/staff/widgets/tv_shows_widget.dart';
+import 'package:anime_convention/shared/repository/staff_repository.dart';
 import 'package:anime_convention/shared/widgets/staff_image_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../shared/repository/staff_repository.dart';
 
 class StaffBody extends ConsumerWidget {
   final String name;
@@ -16,23 +15,44 @@ class StaffBody extends ConsumerWidget {
         future: ref.read(staffRepositoryProvider).fetchStaff(name),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CupertinoActivityIndicator());
           }
 
           if (snapshot.hasError) {
-            return const Center(child: Text('Failed to load staff data.'));
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Failed to load staff data.',
+                  style: TextStyle(
+                    color: CupertinoColors.systemRed,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            );
           }
 
           final staff = snapshot.data;
           if (staff == null) {
-            return const Center(child: Text('No staff data found.'));
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'No staff data found.',
+                  style: TextStyle(
+                    color: CupertinoColors.secondaryLabel,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            );
           }
 
           final staffImageUrl = staff.image?.large;
 
           return CustomScrollView(
             slivers: [
-              // Staff Image Section
               if (staffImageUrl != null)
                 SliverToBoxAdapter(
                   child: Padding(
@@ -48,8 +68,9 @@ class StaffBody extends ConsumerWidget {
                             padding: const EdgeInsets.only(left: 64.0, top: 4),
                             child: Center(
                               child: Icon(
-                                Icons.favorite,
-                                color: Colors.red.withOpacity(0.9),
+                                CupertinoIcons.heart_fill,
+                                color:
+                                    CupertinoColors.systemRed.withOpacity(0.9),
                                 size: 24,
                               ),
                             ),

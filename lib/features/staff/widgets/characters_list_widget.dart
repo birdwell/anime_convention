@@ -1,9 +1,8 @@
-import 'package:anime_convention/features/staff/widgets/character_shimmer.dart';
 import 'package:anime_convention/features/staff/widgets/character_widget.dart';
 import 'package:anime_convention/shared/providers/characters_provider.dart';
 import 'package:anime_convention/shared/typedefs.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CharactersListWidget extends ConsumerWidget {
@@ -48,14 +47,17 @@ class CharactersListWidget extends ConsumerWidget {
         (context, index) {
           if (index == characters.length) {
             ref.read(charactersProvider(staffId).notifier).fetchCharacters();
-            return CharacterShimmer();
+            return const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Center(
+                child: CupertinoActivityIndicator(),
+              ),
+            );
           }
 
           final characterEdge = characters[index];
           return CharacterWidget(
-            key: ValueKey(
-              characterEdge?.node?.id,
-            ),
+            key: ValueKey(characterEdge?.node?.id),
             characterEdge: characterEdge,
           );
         },

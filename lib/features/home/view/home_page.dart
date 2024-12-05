@@ -1,6 +1,5 @@
 import 'package:anime_convention/features/home/view/home_view.dart';
 import 'package:anime_convention/features/home/view/signed_characters_page.dart';
-import 'package:anime_convention/features/home/widgets/home_body.dart';
 import 'package:anime_convention/features/profile/view/profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,12 +32,7 @@ class HomePage extends StatelessWidget {
       MaterialPageRoute<dynamic>(builder: (_) => const HomePage());
 
   @override
-  Widget build(BuildContext context) {
-    final isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-
-    if (isIOS) {
-      // Use CupertinoTabScaffold for iOS
-      return CupertinoTabScaffold(
+  Widget build(BuildContext context) => CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
           backgroundColor: CupertinoColors.systemBackground.withOpacity(0.1),
           activeColor: CupertinoColors.black,
@@ -78,37 +72,4 @@ class HomePage extends StatelessWidget {
           }
         },
       );
-    }
-
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Anime405'),
-          bottom: const TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.home_rounded)),
-              Tab(icon: Icon(Icons.history_edu)),
-              Tab(icon: Icon(Icons.person)),
-            ],
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.logout),
-            ),
-          ],
-        ),
-        body: const SafeArea(
-          child: TabBarView(
-            children: [
-              HomeBody(),
-              SignedCharactersPage(),
-              ProfilePage(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

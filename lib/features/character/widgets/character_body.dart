@@ -1,7 +1,7 @@
 import 'package:anime_convention/features/character/provider/provider.dart';
 import 'package:anime_convention/features/character/widgets/character_appbar_widget.dart';
 import 'package:anime_convention/features/character/widgets/show_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class CharacterBody extends ConsumerWidget {
   const CharacterBody({super.key});
@@ -13,7 +13,15 @@ class CharacterBody extends ConsumerWidget {
     return ref.watch(characterProvider(id)).when(
           data: (character) {
             if (character == null) {
-              return const Center(child: Text('Character not found'));
+              return Center(
+                child: Text(
+                  'Character not found',
+                  style: TextStyle(
+                    color: CupertinoColors.secondaryLabel,
+                    fontSize: 16,
+                  ),
+                ),
+              );
             }
 
             final shows = character.media?.nodes;
@@ -21,7 +29,8 @@ class CharacterBody extends ConsumerWidget {
             return CustomScrollView(
               slivers: [
                 CharacterAppbarWidget(character: character),
-                SliverToBoxAdapter(child: const SizedBox(height: 16)),
+                CharacterHeaderWidget(character: character),
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
                 if (shows != null)
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
@@ -35,11 +44,22 @@ class CharacterBody extends ConsumerWidget {
               ],
             );
           },
-          loading: () => const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+          loading: () => const CupertinoPageScaffold(
+            child: Center(child: CupertinoActivityIndicator()),
           ),
-          error: (error, stackTrace) => Scaffold(
-            body: Center(child: Text('Error: $error')),
+          error: (error, stackTrace) => CupertinoPageScaffold(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Error loading character data',
+                  style: TextStyle(
+                    color: CupertinoColors.systemRed,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
           ),
         );
   }
